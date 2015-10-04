@@ -1,0 +1,56 @@
+/* General */
+
+.sr-only {
+	display: none;
+}
+
+#content {
+	text-align: left;
+}
+
+.wrapper.style4 + .wrapper.style4 {
+	padding-top: 0;
+	margin-top: -8em;
+	box-shadow: none;
+}
+
+/* Footer */
+
+#copyright {
+	font-size: 90%;
+}
+
+/* Posts */
+
+.byline {
+	font-style: italic;
+}
+
+/* Pager */
+
+.pager .next {
+	float: left;
+}
+
+.pager .previous {
+	float: right;
+}
+
+.pager li>a {
+	display: inline-block;
+	border: 1px solid #ddd;
+	padding: 1em 2em;
+	text-transform: uppercase;
+	font-weight: 800;
+	font-size: 75%;
+	color: #626262;
+	margin-top: 3em;
+}
+
+.postindexpager .next {
+	float: right;
+}
+
+.postindexpager .previous {
+	 float: left;
+}
