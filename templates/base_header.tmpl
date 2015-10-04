@@ -1,0 +1,51 @@
+## -*- coding: utf-8 -*-
+<%namespace name="base" file="base_helper.tmpl" import="*"/>
+
+<%def name="html_header()">
+${html_translation_header()}
+%if search_form:
+<div class="searchform" role="search">
+	${search_form}
+</div>
+%endif
+${template_hooks['page_header']()}
+</%def>
+
+<%def name="html_site_title()">
+</%def>
+
+<%def name="html_navigation_links()">
+<ul class="container">
+%for url, text in navigation_links[lang]:
+% if isinstance(url, tuple):
+	<li>${text}<li>
+	<ul>
+	%for suburl, text in url:
+	% if rel_link(permalink, suburl) == "#":
+		<li class="active"><a href="${permalink}">${text} <span class="sr-only">${messages("(active)", lang)}</span></a></li>
+	%else:
+		<li><a href="${suburl}">${text}</a></li>
+	%endif
+	%endfor
+	</ul>
+% else:
+	% if rel_link(permalink, url) == "#":
+	<li class="active"><a href="${permalink}">${text} <span class="sr-only">${messages("(active)", lang)}</span></a></li>
+	%else:
+	<li><a href="${url}">${text}</a></li>
+	%endif
+% endif
+%endfor
+${template_hooks['menu']()}
+${template_hooks['menu_alt']()}
+</ul>
+</%def>
+
+<%def name="html_translation_header()">
+%if len(translations) > 1:
+<div id="toptranslations">
+	<h2>${messages("Languages:")}</h2>
+	${base.html_translations()}
+</div>
+%endif
+</%def>
