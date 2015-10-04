@@ -1,0 +1,71 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="index_helper.tmpl"/>
+<%namespace name="header" file="base_header.tmpl" import="*"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+<%inherit file="base.tmpl"/>
+
+<%block name="extra_head">
+${parent.extra_head()}
+% if posts and (permalink == '/' or permalink == '/' + index_file):
+<link rel="prefetch" href="${posts[0].permalink()}" type="text/html">
+% endif
+</%block>
+
+<%block name="content">
+<div class="wrapper style1 first">
+	<article class="container" id="top">
+		<div class="row">
+			<div class="4u 12u(mobile)">
+				<span class="image fit">
+				%if logo_url:
+					<img src="${logo_url}" alt="${blog_title|h}" id="logo">
+				%endif
+				</span>
+			</div>
+			<div class="8u 12u(mobile)">
+				<header>
+					<h1 id="brand">
+						Hi. I'm <strong>${blog_author|h}</strong>.
+					</h1>
+				</header>
+				<p>And this is my <strong>blog</strong>.</p>
+				<a href="#content" class="button big scrolly">Jump to the posts</a>
+			</div>
+		</div>
+	</article>
+</div>
+<%block name="content_header"></%block>
+<div class="wrapper style1">
+	<div class="container postindex" id="content">
+		% for post in posts:
+		<article class="h-entry post-${post.meta('type')}">
+			<div class="row">
+				<div class="12u 12u(mobile)">
+					<header>
+						<h2 class="p-name entry-title"><a href="${post.permalink()}" class="u-url">${post.title()|h}</a></h2>
+						<div class="metadata">
+							<p class="byline author vcard"><span class="byline-name fn">
+								Posted by
+								% if author_pages_generated:
+								<a href="${_link('author', post.author())}">${post.author()}</a>
+								% else:
+								${post.author()}
+								% endif
+								</span> on 
+								<span class="dateline"><a href="${post.permalink()}" rel="bookmark"><time class="published dt-published" datetime="${post.formatted_date('webiso')}" title="${post.formatted_date(date_format)}">${post.formatted_date(date_format)}</time></a></span>
+							</p>
+							% if not post.meta('nocomments') and site_has_comments:
+							<p class="commentline">${comments.comment_link(post.permalink(), post._base_path)}
+							% endif
+						</div>
+					</header>
+				</div>
+			</div>
+		</article>
+		% endfor
+		${helper.html_pager()}
+	</div>
+</div>
+${comments.comment_link_script()}
+${helper.mathjax_script(posts)}
+</%block>
