@@ -1,0 +1,34 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="post_helper.tmpl"/>
+<%namespace name="header" file="base_header.tmpl" import="*"/>
+<%namespace name="pheader" file="post_header.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+<%inherit file="post.tmpl"/>
+
+<%block name="content">
+<div class="wrapper style1 first">
+	<article class="container" id="top">
+		<div class="row">
+			<div class="4u 12u(mobile)">
+				<span class="image fit">
+					%if logo_url:
+					<img src="${logo_url}" alt="${blog_title|h}" id="logo">
+					%endif
+				</span>
+			</div>
+			<div class="8u 12u(mobile)">
+				<header>
+					<h1 id="brand">
+						Hi. I'm <strong>${blog_author|h}</strong>.
+					</h1>
+				</header>
+				<p>And this is my <strong>${post.description()|h}</strong>.</p>
+				<a href="#about" class="button big scrolly">
+				<%block name="content_about">Learn more about this site</%block>
+				</a>
+			</div>
+		</div>
+	</article>
+</div>
+${post.text()}
+</%block>
